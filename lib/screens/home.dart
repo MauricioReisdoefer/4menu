@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newproject/screens/resgister.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar
       appBar: AppBar(
         toolbarHeight: 120,
         backgroundColor: const Color.fromARGB(255, 31, 30, 30),
@@ -24,7 +26,14 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(width: 8),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Resgister()),
+                );
+              });
+            },
             child: Text("Register"),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -35,7 +44,7 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // 🔹 Corpo da tela
+      // Corpo da tela
       body: ListView(
         children: [
           // Banner de entrada
@@ -59,13 +68,13 @@ class _HomeState extends State<Home> {
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           shape: CircleBorder(),
                           backgroundColor: Colors.orange,
-                          padding: EdgeInsets.all(18),
+                          padding: EdgeInsets.all(22),
                         ),
                         child: Icon(Icons.arrow_downward, color: Colors.white),
                       ),
@@ -76,37 +85,35 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          // 🔹 Adicione Seu Restaurante
+          // Adicione Seu Restaurante
           Container(
+            height: 370,
             color: Colors.black,
             padding: EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Adicione Seu Restaurante",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Quer adicionar seu restaurante? Crie seu perfil e entre na aba 'Criar', onde terá disponibilidade de criar sua página para nosso site!",
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ],
+                Text(
+                  "Adicione Seu Restaurante",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(height: 10),
+                Text(
+                  "Quer adicionar seu restaurante? Crie seu perfil e entre na aba 'Criar', onde terá disponibilidade de criar sua página para nosso site!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
                   ),
@@ -116,27 +123,32 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          // 🔹 Quem Somos
+          // Quem Somos
           Container(
+            height: 300,
             color: Colors.white,
             padding: EdgeInsets.all(20),
             child: Row(
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Image.asset(
-                        'assets/images/4chefs.png', // não esquece da extensão .png
-                        width: 10, // 🔹 Ajuste a largura
-                        height: 10, // 🔹 Ajuste a altura
-                        fit: BoxFit
-                            .contain, // 🔹 Garante que a imagem não estique
+                        'assets/images/4chefs.png',
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.contain,
                       ),
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 15,
+                        ),
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.white,
                       ),
@@ -147,19 +159,30 @@ class _HomeState extends State<Home> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        "Quem Somos?",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        child: Column(
+                          children: [
+                            Text(
+                              "Quem Somos?",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Somos a empresa 4Chefs, onde criamos softwares voltados a restaurantes e chefs de cozinha. Para saber mais, acesse nosso site ao lado.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "Somos a empresa 4Chefs, onde criamos softwares voltados a restaurantes e chefs de cozinha. Para saber mais, acesse nosso site ao lado.",
-                        style: TextStyle(color: Colors.black87),
                       ),
                     ],
                   ),
@@ -170,8 +193,9 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // 🔹 BottomNavigationBar (igual sua foto)
+      // BottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromARGB(255, 31, 30, 30),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
