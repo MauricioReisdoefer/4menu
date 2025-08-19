@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.white,
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           TextButton(
             onPressed: () {
               setState(() {
@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.orange,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
       ),
 
@@ -65,18 +65,24 @@ class _HomeState extends State<Home> {
                         child: Text(
                           "Bem-vindo ao 4Menu! Aqui você tem acesso a vários restaurantes e cardápios. Cadastre-se e adicione seu restaurante agora mesmo!",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           backgroundColor: Colors.orange,
                           padding: EdgeInsets.all(22),
                         ),
-                        child: Icon(Icons.arrow_downward, color: Colors.white),
+                        child: const Icon(
+                          Icons.arrow_downward,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -117,7 +123,7 @@ class _HomeState extends State<Home> {
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
                   ),
-                  child: Text("Register"),
+                  child: const Text("Register"),
                 ),
               ],
             ),
@@ -127,7 +133,7 @@ class _HomeState extends State<Home> {
           Container(
             height: 300,
             color: Colors.white,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 Column(
@@ -152,12 +158,12 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.white,
                       ),
-                      child: Text("Nosso Site"),
+                      child: const Text("Nosso Site"),
                     ),
                   ],
                 ),
-                SizedBox(width: 20),
-                Expanded(
+                const SizedBox(width: 20),
+                const Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -199,7 +205,18 @@ class _HomeState extends State<Home> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
-        items: [
+        onTap: (index) {
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    CriacaoRestauranteScreen(), // 👉 tua página de cardápio
+              ),
+            );
+          }
+        },
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "HOME"),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
