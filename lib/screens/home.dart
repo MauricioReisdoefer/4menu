@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cardapio.dart'; // 👉 importa tua página de cardápio
 
 class Home extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.white,
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           TextButton(
             onPressed: () {},
             child: Text("Register"),
@@ -31,7 +32,7 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.orange,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
       ),
 
@@ -56,18 +57,18 @@ class _HomeState extends State<Home> {
                         child: Text(
                           "Bem-vindo ao 4Menu! Aqui você tem acesso a vários restaurantes e cardápios. Cadastre-se e adicione seu restaurante agora mesmo!",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           backgroundColor: Colors.orange,
-                          padding: EdgeInsets.all(18),
+                          padding: const EdgeInsets.all(18),
                         ),
-                        child: Icon(Icons.arrow_downward, color: Colors.white),
+                        child: const Icon(Icons.arrow_downward, color: Colors.white),
                       ),
                     ],
                   ),
@@ -79,14 +80,14 @@ class _HomeState extends State<Home> {
           // 🔹 Adicione Seu Restaurante
           Container(
             color: Colors.black,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         "Adicione Seu Restaurante",
                         style: TextStyle(
@@ -103,14 +104,14 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
                   ),
-                  child: Text("Register"),
+                  child: const Text("Register"),
                 ),
               ],
             ),
@@ -119,33 +120,30 @@ class _HomeState extends State<Home> {
           // 🔹 Quem Somos
           Container(
             color: Colors.white,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 Column(
                   children: [
-                    Container(
-                      child: Image.asset(
-                        'assets/images/4chefs.png', // não esquece da extensão .png
-                        width: 10, // 🔹 Ajuste a largura
-                        height: 10, // 🔹 Ajuste a altura
-                        fit: BoxFit
-                            .contain, // 🔹 Garante que a imagem não estique
-                      ),
+                    Image.asset(
+                      'assets/images/4chefs.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.contain,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.white,
                       ),
-                      child: Text("Nosso Site"),
+                      child: const Text("Nosso Site"),
                     ),
                   ],
                 ),
-                SizedBox(width: 20),
-                Expanded(
+                const SizedBox(width: 20),
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -170,21 +168,25 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // 🔹 BottomNavigationBar (igual sua foto)
+      // 🔹 BottomNavigationBar corrigido
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
-        items: [
+        onTap: (index) {
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CriacaoRestauranteScreen(), // 👉 tua página de cardápio
+              ),
+            );
+          }
+        },
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "HOME"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "BIBLIOTECA",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            label: "RESTAURANTES",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "BIBLIOTECA"),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: "RESTAURANTES"),
           BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: "CRIAR"),
         ],
       ),
