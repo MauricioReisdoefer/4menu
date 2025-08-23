@@ -19,13 +19,11 @@ class _ResgisterState extends State<Resgister> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.menu_book, color: Colors.orange),
-            SizedBox(width: 8),
-            Text(
-              "4MENU",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+            Center(
+              child: Image.asset(
+                'assets/images/4menu.png',
+                height: 200,
+                width: 200,
               ),
             ),
           ],

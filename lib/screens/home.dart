@@ -117,7 +117,12 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Resgister()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     backgroundColor: Colors.orange,
@@ -162,8 +167,8 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                const SizedBox(width: 20),
-                const Expanded(
+                SizedBox(width: 20),
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,10 +214,7 @@ class _HomeState extends State<Home> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    CriacaoRestauranteScreen(), // 👉 tua página de cardápio
-              ),
+              MaterialPageRoute(builder: (context) => Resgister()),
             );
           }
         },
