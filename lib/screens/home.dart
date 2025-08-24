@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newproject/screens/resgister.dart';
+import 'cardapio.dart'; // 👉 importa tua página de cardápio
 
 class Home extends StatefulWidget {
   @override
@@ -10,7 +10,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar
       appBar: AppBar(
         toolbarHeight: 120,
         backgroundColor: const Color.fromARGB(255, 31, 30, 30),
@@ -26,14 +25,7 @@ class _HomeState extends State<Home> {
           ),
           const SizedBox(width: 8),
           TextButton(
-            onPressed: () {
-              setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Resgister()),
-                );
-              });
-            },
+            onPressed: () {},
             child: Text("Register"),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -44,7 +36,7 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // Corpo da tela
+      // 🔹 Corpo da tela
       body: ListView(
         children: [
           // Banner de entrada
@@ -65,24 +57,18 @@ class _HomeState extends State<Home> {
                         child: Text(
                           "Bem-vindo ao 4Menu! Aqui você tem acesso a vários restaurantes e cardápios. Cadastre-se e adicione seu restaurante agora mesmo!",
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+                          style: const TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
                           backgroundColor: Colors.orange,
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(18),
                         ),
-                        child: const Icon(
-                          Icons.arrow_downward,
-                          color: Colors.white,
-                        ),
+                        child: const Icon(Icons.arrow_downward, color: Colors.white),
                       ),
                     ],
                   ),
@@ -91,40 +77,37 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          // Adicione Seu Restaurante
+          // 🔹 Adicione Seu Restaurante
           Container(
-            height: 370,
             color: Colors.black,
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Adicione Seu Restaurante",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Adicione Seu Restaurante",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Quer adicionar seu restaurante? Crie seu perfil e entre na aba 'Criar', onde terá disponibilidade de criar sua página para nosso site!",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  "Quer adicionar seu restaurante? Crie seu perfil e entre na aba 'Criar', onde terá disponibilidade de criar sua página para nosso site!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
-                ),
-                SizedBox(height: 20),
+                const SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Resgister()),
-                    );
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
                   ),
@@ -134,32 +117,24 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          // Quem Somos
+          // 🔹 Quem Somos
           Container(
-            height: 300,
             color: Colors.white,
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Image.asset(
-                        'assets/images/4chefs.png',
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.contain,
-                      ),
+                    Image.asset(
+                      'assets/images/4chefs.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.contain,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 30,
-                          vertical: 15,
-                        ),
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.white,
                       ),
@@ -167,33 +142,22 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                SizedBox(width: 20),
-                Expanded(
+                const SizedBox(width: 20),
+                const Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Text(
-                              "Quem Somos?",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Somos a empresa 4Chefs, onde criamos softwares voltados a restaurantes e chefs de cozinha. Para saber mais, acesse nosso site ao lado.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
+                      Text(
+                        "Quem Somos?",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Somos a empresa 4Chefs, onde criamos softwares voltados a restaurantes e chefs de cozinha. Para saber mais, acesse nosso site ao lado.",
+                        style: TextStyle(color: Colors.black87),
                       ),
                     ],
                   ),
@@ -204,9 +168,8 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // BottomNavigationBar
+      // 🔹 BottomNavigationBar corrigido
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 31, 30, 30),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
@@ -214,20 +177,16 @@ class _HomeState extends State<Home> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Resgister()),
+              MaterialPageRoute(
+                builder: (context) => CriacaoRestauranteScreen(), // 👉 tua página de cardápio
+              ),
             );
           }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "HOME"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "BIBLIOTECA",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            label: "RESTAURANTES",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "BIBLIOTECA"),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: "RESTAURANTES"),
           BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: "CRIAR"),
         ],
       ),

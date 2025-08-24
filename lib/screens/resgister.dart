@@ -130,7 +130,7 @@ class _ResgisterState extends State<Resgister> {
         unselectedItemColor: Colors.white54,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: "Biblioteca",
