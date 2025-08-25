@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // <- pra controlar status bar
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/screens/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
-import 'criar_restaurante.dart'; // 👉 importa tua página de cardápio
+import 'criar_restaurante.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,12 +11,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 700),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 31, 30, 30),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Image.asset('assets/images/4menu.png', height: 150),
         actions: [
           TextButton(
@@ -34,7 +57,7 @@ class _HomeState extends State<Home> {
                 MaterialPageRoute(builder: (context) => Resgister()),
               );
             },
-            child: Text("Register"),
+            child: Text("Registrar"),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Colors.orange,
@@ -44,8 +67,8 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // 🔹 Corpo da tela
       body: ListView(
+        controller: _scrollController,
         children: [
           // Banner de entrada
           SizedBox(
@@ -71,13 +94,13 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: _scrollToBottom,
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
                           backgroundColor: Colors.orange,
-                          padding: const EdgeInsets.all(18),
+                          padding: const EdgeInsets.all(20),
                         ),
                         child: const Icon(
                           Icons.arrow_downward,
@@ -91,34 +114,31 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          // 🔹 Adicione Seu Restaurante
+          // Adicione Seu Restaurante
           Container(
+            height: 300,
             color: Colors.black,
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Adicione Seu Restaurante",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Quer adicionar seu restaurante? Crie seu perfil e entre na aba 'Criar', onde terá disponibilidade de criar sua página para nosso site!",
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ],
+                Text(
+                  "Adicione Seu Restaurante",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(height: 10),
+                Text(
+                  "Quer adicionar seu restaurante? Crie seu perfil e entre na aba 'Criar', onde terá disponibilidade de criar sua página para nosso site!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -127,56 +147,54 @@ class _HomeState extends State<Home> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text("Register"),
+                  child: Text("Registrar", style: TextStyle(fontSize: 16)),
                 ),
               ],
             ),
           ),
 
-          // 🔹 Quem Somos
+          // Quem Somos
           Container(
+            height: 300,
             color: Colors.white,
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
             child: Row(
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/4chefs.png',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.contain,
-                    ),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        foregroundColor: Colors.white,
+                    Container(
+                      child: Image.asset(
+                        'assets/images/4chefs.png',
+                        width: 140,
+                        height: 140,
+                        fit: BoxFit.contain,
                       ),
-                      child: const Text("Nosso Site"),
                     ),
                   ],
                 ),
-                const SizedBox(width: 20),
-                const Expanded(
+                SizedBox(width: 20),
+                Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         "Quem Somos?",
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(height: 8),
                       Text(
                         "Somos a empresa 4Chefs, onde criamos softwares voltados a restaurantes e chefs de cozinha. Para saber mais, acesse nosso site ao lado.",
-                        style: TextStyle(color: Colors.black87),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black87, fontSize: 16),
                       ),
                     ],
                   ),
