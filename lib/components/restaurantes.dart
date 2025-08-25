@@ -7,16 +7,18 @@ class Restaurante extends StatelessWidget {
   const Restaurante({required this.url, required this.nome});
 
   @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16), // borda arredondada
+Widget build(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 12),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(16),
       child: Stack(
         children: [
           Image.network(
             url,
             width: double.infinity,
             height: 250,
-            fit: BoxFit.cover, // preenche sem distorcer
+            fit: BoxFit.cover,
             loadingBuilder: (context, child, progress) =>
                 progress == null ? child : Center(child: CircularProgressIndicator()),
             errorBuilder: (context, error, stackTrace) =>
@@ -37,7 +39,7 @@ class Restaurante extends StatelessWidget {
             bottom: 16,
             left: 16,
             child: Text(
-              'Restaurante Don Sini',
+              nome,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -54,6 +56,6 @@ class Restaurante extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
+    ),
+  );
+}}

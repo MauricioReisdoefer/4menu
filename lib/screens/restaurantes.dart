@@ -60,15 +60,21 @@ class _RestaurantesState extends State<Restaurantes> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text("Criação de Restaurante"),
+        backgroundColor: const Color.fromARGB(255, 147, 142, 142),
+        title: const Text("Restaurantes Disponíveis"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Restaurante(url: '', nome: '',)
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
+            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
           ]
         ),
       ),
