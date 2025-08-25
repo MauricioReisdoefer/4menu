@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/screens/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
-import 'cardapio.dart'; // 👉 importa tua página de cardápio
+import 'criar_restaurante.dart'; // 👉 importa tua página de cardápio
 
 class Home extends StatefulWidget {
   @override

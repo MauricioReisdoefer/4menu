@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
-import 'package:newproject/screens/home.dart';
+import 'package:newproject/screens/inicio.dart';
 import 'package:newproject/screens/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
 
