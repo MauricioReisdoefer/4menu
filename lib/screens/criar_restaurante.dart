@@ -7,7 +7,8 @@ import 'package:newproject/screens/restaurantes.dart';
 
 class CriacaoRestauranteScreen extends StatefulWidget {
   @override
-  State<CriacaoRestauranteScreen> createState() => _CriacaoRestauranteScreenState();
+  State<CriacaoRestauranteScreen> createState() =>
+      _CriacaoRestauranteScreenState();
 }
 
 class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
@@ -31,7 +32,9 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária"),
+          title: Text(
+            isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária",
+          ),
           content: SingleChildScrollView(
             child: ColorPicker(
               pickerColor: isPrimaria ? corPrimaria : corSecundaria,
@@ -68,19 +71,27 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Título do Restaurante", style: TextStyle(color: Colors.white, fontSize: 18)),
+            const Text(
+              "Título do Restaurante",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
             const SizedBox(height: 8),
             TextField(
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 hintText: "Nome genérico...",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
             const SizedBox(height: 20),
 
-            const Text("Escolha o Layout", style: TextStyle(color: Colors.white, fontSize: 18)),
+            const Text(
+              "Escolha o Layout",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,7 +110,10 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
             ),
 
             const SizedBox(height: 20),
-            const Text("Definindo o Cardápio", style: TextStyle(color: Colors.white, fontSize: 18)),
+            const Text(
+              "Definindo o Cardápio",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {},
@@ -108,7 +122,10 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
             ),
             const SizedBox(height: 20),
 
-            const Text("Definindo as Cores", style: TextStyle(color: Colors.white, fontSize: 18)),
+            const Text(
+              "Definindo as Cores",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
             const SizedBox(height: 10),
 
             // Cor Primária
@@ -117,7 +134,9 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => _abrirColorPicker(true),
-                    style: ElevatedButton.styleFrom(backgroundColor: corPrimaria),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: corPrimaria,
+                    ),
                     child: const Text("Cor Primária"),
                   ),
                 ),
@@ -131,7 +150,9 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => _abrirColorPicker(false),
-                    style: ElevatedButton.styleFrom(backgroundColor: corSecundaria),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: corSecundaria,
+                    ),
                     child: const Text("Cor Secundária"),
                   ),
                 ),
@@ -144,16 +165,18 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: corPrimaria,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                    vertical: 15,
+                  ),
                 ),
                 child: const Text("Finalizar", style: TextStyle(fontSize: 18)),
               ),
-            )
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: RodapeRestaurante()
-
+      bottomNavigationBar: RodapeRestaurante(abaAtual: 'criar'),
     );
   }
 }

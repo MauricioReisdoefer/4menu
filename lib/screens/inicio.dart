@@ -28,7 +28,12 @@ class _HomeState extends State<Home> {
           ),
           const SizedBox(width: 8),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Resgister()),
+              );
+            },
             child: Text("Register"),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -60,7 +65,10 @@ class _HomeState extends State<Home> {
                         child: Text(
                           "Bem-vindo ao 4Menu! Aqui você tem acesso a vários restaurantes e cardápios. Cadastre-se e adicione seu restaurante agora mesmo!",
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -71,7 +79,10 @@ class _HomeState extends State<Home> {
                           backgroundColor: Colors.orange,
                           padding: const EdgeInsets.all(18),
                         ),
-                        child: const Icon(Icons.arrow_downward, color: Colors.white),
+                        child: const Icon(
+                          Icons.arrow_downward,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -109,7 +120,12 @@ class _HomeState extends State<Home> {
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Resgister()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
@@ -171,8 +187,7 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      bottomNavigationBar: RodapeRestaurante()
-
+      bottomNavigationBar: RodapeRestaurante(abaAtual: 'home'),
     );
   }
 }

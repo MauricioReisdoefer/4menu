@@ -32,7 +32,9 @@ class _RestaurantesState extends State<Restaurantes> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária"),
+          title: Text(
+            isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária",
+          ),
           content: SingleChildScrollView(
             child: ColorPicker(
               pickerColor: isPrimaria ? corPrimaria : corSecundaria,
@@ -69,18 +71,45 @@ class _RestaurantesState extends State<Restaurantes> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-            Restaurante(url: 'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1', nome: 'Meu tico'),
-          ]
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+            Restaurante(
+              url:
+                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+              nome: 'Meu tico',
+            ),
+          ],
         ),
       ),
-      bottomNavigationBar: RodapeRestaurante()
-
+      bottomNavigationBar: RodapeRestaurante(abaAtual: 'restaurantes'),
     );
   }
 }
