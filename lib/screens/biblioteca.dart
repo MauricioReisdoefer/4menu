@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
+import 'package:newproject/screens/cardapio.dart';
 import 'package:newproject/screens/criar_restaurante.dart';
 import 'package:newproject/screens/inicio.dart';
 import 'package:newproject/screens/resgister.dart';
@@ -71,16 +72,25 @@ class _BibliotecaState extends State<Biblioteca> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Cardapio(), // tua tela de cardápio
+                  ),
+                );
+              },
+              child: Restaurante(
+                url:
+                    'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                nome: 'Meu tico',
+              ),
             ),
-            
           ],
         ),
       ),
-      bottomNavigationBar: RodapeRestaurante(abaAtual: 'restaurantes'),
+      bottomNavigationBar: RodapeRestaurante(abaAtual: 'biblioteca'),
     );
   }
 }
