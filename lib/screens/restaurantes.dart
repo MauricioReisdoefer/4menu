@@ -127,6 +127,7 @@ class _RestaurantesState extends State<Restaurantes> {
                         'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
                     nome: 'Meu tico',
                   ),
+                  
                 ],
               ),
             ),

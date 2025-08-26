@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
+import 'package:newproject/components/restaurantes.dart';
 import 'package:newproject/screens/inicio.dart';
 import 'package:newproject/screens/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
@@ -12,6 +13,9 @@ class CriacaoRestauranteScreen extends StatefulWidget {
 }
 
 class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
+
+  late String nome = controller_nome as String;
+
   Color corPrimaria = Colors.orange;
   Color corSecundaria = Colors.grey;
 
@@ -58,6 +62,8 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
     );
   }
 
+   final TextEditingController controller_nome = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,6 +83,7 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
             ),
             const SizedBox(height: 8),
             TextField(
+              controller: controller_nome,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -162,7 +169,9 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Restaurante novo_restaurante = Restaurante(url: "sdfsdf", nome: nome);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: corPrimaria,
                   padding: const EdgeInsets.symmetric(
@@ -179,4 +188,5 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
       bottomNavigationBar: RodapeRestaurante(abaAtual: 'criar'),
     );
   }
+  
 }
