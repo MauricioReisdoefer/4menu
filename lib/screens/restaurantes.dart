@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
@@ -60,56 +61,92 @@ class _RestaurantesState extends State<Restaurantes> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 147, 142, 142),
-        title: const Text("Restaurantes Disponíveis"),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          toolbarHeight: 100,
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 31, 30, 30),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          surfaceTintColor: Colors.transparent,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+          title: Image.asset('assets/images/4menu.png', height: 150),
+          bottom: TabBar(
+            indicatorColor: corPrimaria,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white,
+            tabs: const [
+              Tab(text: 'Restaurantes'),
+              Tab(text: 'Meus Restaurantes'),
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: [
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                  Restaurante(
+                    url:
+                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                    nome: 'Meu tico',
+                  ),
+                ],
+              ),
             ),
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
-            ),
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
-            ),
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
-            ),
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
-            ),
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
-            ),
-            Restaurante(
-              url:
-                  'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-              nome: 'Meu tico',
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.restaurant_menu, color: Colors.white, size: 100),
+                  SizedBox(height: 30),
+                  Text(
+                    'Você ainda não tem nenhum restaurante',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
+        bottomNavigationBar: RodapeRestaurante(abaAtual: 'restaurantes'),
       ),
-      bottomNavigationBar: RodapeRestaurante(abaAtual: 'restaurantes'),
     );
   }
 }
