@@ -42,7 +42,6 @@ class BannerNomeWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          color: Colors.black,
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           child: Text(
@@ -50,7 +49,7 @@ class BannerNomeWidget extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 25,
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -178,6 +177,10 @@ class _CardapioState extends State<Cardapio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
         toolbarHeight: 120,
         automaticallyImplyLeading: false,
         centerTitle: true,

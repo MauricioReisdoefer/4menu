@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
+import 'package:newproject/components/cardapio.dart';
 import 'package:newproject/screens/criar_restaurante.dart';
 import 'package:newproject/screens/inicio.dart';
 import 'package:newproject/screens/register/resgister.dart';
@@ -59,6 +60,55 @@ class _RestaurantesState extends State<Restaurantes> {
     );
   }
 
+  // Função para criar o Cardapio com exemplo de produtos
+  Cardapio criarCardapioExemplo(String nomeRestaurante) {
+    return Cardapio(
+      urlImg: 'assets/images/4menu.png',
+      urlBanner: 'assets/images/4menu.png',
+      nomeRestaurante: nomeRestaurante,
+      categorias: {
+        'Entradas': [
+          Produto(
+            nome: 'Salada Tropical',
+            descricao: 'Mix de folhas e frutas',
+            preco: 15.9,
+            foto: 'assets/images/background.jpeg',
+          ),
+        ],
+        'Pratos Principais': [
+          Produto(
+            nome: 'Frango Grelhado',
+            descricao: 'Frango suculento',
+            preco: 29.9,
+            foto: 'assets/images/background.jpeg',
+          ),
+        ],
+        'Bebidas': [
+          Produto(
+            nome: 'Suco Natural',
+            descricao: 'Suco de laranja fresquinho',
+            preco: 7.50,
+            foto: 'assets/images/background.jpeg',
+          ),
+          Produto(
+            nome: 'Refrigerante',
+            descricao: 'Coca-Cola lata 350ml',
+            preco: 6.00,
+            foto: 'assets/images/background.jpeg',
+          ),
+        ],
+        'Sobremesas': [
+          Produto(
+            nome: 'Petit Gateau',
+            descricao: 'Bolo com recheio de chocolate e sorvete',
+            preco: 18.90,
+            foto: 'assets/images/background.jpeg',
+          ),
+        ],
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -92,42 +142,55 @@ class _RestaurantesState extends State<Restaurantes> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
+                  // Cada restaurante envolvido em GestureDetector
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              criarCardapioExemplo('Meu Tico'),
+                        ),
+                      );
+                    },
+                    child: Restaurante(
+                      url:
+                          'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                      nome: 'Meu Tico',
+                    ),
                   ),
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              criarCardapioExemplo('Restaurante XYZ'),
+                        ),
+                      );
+                    },
+                    child: Restaurante(
+                      url:
+                          'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                      nome: 'Restaurante XYZ',
+                    ),
                   ),
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              criarCardapioExemplo('Restaurante ABC'),
+                        ),
+                      );
+                    },
+                    child: Restaurante(
+                      url:
+                          'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
+                      nome: 'Restaurante ABC',
+                    ),
                   ),
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
-                  ),
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
-                  ),
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
-                  ),
-                  Restaurante(
-                    url:
-                        'https://i0.wp.com/corujamusic.com.br/wp-content/uploads/2022/11/queen-made-in-heaven.jpg?ssl=1',
-                    nome: 'Meu tico',
-                  ),
-                  
                 ],
               ),
             ),
@@ -136,8 +199,8 @@ class _RestaurantesState extends State<Restaurantes> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.restaurant_menu, color: Colors.white, size: 100),
-                  SizedBox(height: 30),
-                  Text(
+                  const SizedBox(height: 30),
+                  const Text(
                     'Você ainda não tem nenhum restaurante',
                     style: TextStyle(color: Colors.white, fontSize: 15),
                   ),

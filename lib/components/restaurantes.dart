@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:newproject/screens/cozinha.dart';
 
 class Restaurante extends StatefulWidget {
   final String url;
@@ -56,6 +58,7 @@ class _RestauranteState extends State<Restaurante> {
                 ),
               ),
             ),
+            // ❤️ ícone no topo (já tinha)
             Positioned(
               top: 8,
               right: 8,
@@ -78,6 +81,70 @@ class _RestauranteState extends State<Restaurante> {
                       _favorito ? Icons.favorite : Icons.favorite_border,
                       color: _favorito ? Colors.redAccent : Colors.white,
                       size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // cozinheiro
+            Positioned(
+              bottom: 8,
+              right: 8,
+              child: Material(
+                color: Colors.black.withOpacity(0.35),
+                shape: const CircleBorder(),
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: () {
+                    setState(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Cozinha(
+                            pedidos: [
+                              Pedido(
+                                id: 101,
+                                produtos: [
+                                  Produto(
+                                    nome: "Hambúrguer Clássico",
+                                    foto: "assets/images/background.jpeg",
+                                  ),
+                                  Produto(
+                                    nome: "Batata Frita",
+                                    foto: "assets/images/background.jpeg",
+                                  ),
+                                  Produto(
+                                    nome: "Coca-Cola Lata",
+                                    foto: "assets/images/background.jpeg",
+                                  ),
+                                ],
+                              ),
+                              Pedido(
+                                id: 102,
+                                produtos: [
+                                  Produto(
+                                    nome: "Pizza Calabresa",
+                                    foto: "assets/images/background.jpeg",
+                                  ),
+                                  Produto(
+                                    nome: "Suco de Laranja",
+                                    foto: "assets/images/background.jpeg",
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: FaIcon(
+                      FontAwesomeIcons.utensils,
+                      size: 30,
+                      color: Colors.white,
                     ),
                   ),
                 ),

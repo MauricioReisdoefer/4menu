@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
@@ -13,7 +14,6 @@ class CriacaoRestauranteScreen extends StatefulWidget {
 }
 
 class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
-
   late String nome = controller_nome as String;
 
   Color corPrimaria = Colors.orange;
@@ -62,21 +62,39 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
     );
   }
 
-   final TextEditingController controller_nome = TextEditingController();
+  final TextEditingController controller_nome = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text("Criação de Restaurante"),
+        toolbarHeight: 120,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 31, 30, 30),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        title: Image.asset('assets/images/4menu.png', height: 150),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+              child: Text(
+                'Criar Restaurante',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
             const Text(
               "Título do Restaurante",
               style: TextStyle(color: Colors.white, fontSize: 18),
@@ -170,7 +188,10 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Restaurante novo_restaurante = Restaurante(url: "sdfsdf", nome: nome);
+                  Restaurante novo_restaurante = Restaurante(
+                    url: "sdfsdf",
+                    nome: nome,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: corPrimaria,
@@ -188,5 +209,4 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
       bottomNavigationBar: RodapeRestaurante(abaAtual: 'criar'),
     );
   }
-  
 }

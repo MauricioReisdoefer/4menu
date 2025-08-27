@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
@@ -64,8 +65,15 @@ class _BibliotecaState extends State<Biblioteca> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 147, 142, 142),
-        title: const Text("Restaurantes Disponíveis"),
+        toolbarHeight: 120,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 31, 30, 30),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        title: Image.asset('assets/images/4menu.png', height: 150),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
