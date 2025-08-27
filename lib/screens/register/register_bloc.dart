@@ -1,4 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'register_event.dart';
 import 'register_state.dart';
 
@@ -19,15 +22,39 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      final url = Uri.parse("http://10.0.29.229:5000/users/create"); 
 
-      // TODO: integrar com backend
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "name": event.name,
+          "email": event.email,
+          "password": event.password,
+        }),
+      );
 
-      emit(state.copyWith(isLoading: false, isSuccess: true));
+      if (response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        emit(state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          errorMessage: null,
+        ));
+      } else {
+        final data = jsonDecode(response.body);
+        emit(state.copyWith(
+          isLoading: false,
+          isSuccess: false,
+          errorMessage: data["error"] ?? "Erro inesperado",
+        ));
+      }
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
-        errorMessage: e.toString(),
+        isSuccess: false,
+        errorMessage: "Falha na conexão com o servidor: $e",
       ));
     }
   }

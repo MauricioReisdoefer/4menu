@@ -3,7 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
 import 'package:newproject/screens/inicio.dart';
-import 'package:newproject/screens/resgister.dart';
+import 'package:newproject/screens/register/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
 
 class CriacaoRestauranteScreen extends StatefulWidget {

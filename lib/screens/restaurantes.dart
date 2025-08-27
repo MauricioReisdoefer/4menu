@@ -5,7 +5,7 @@ import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
 import 'package:newproject/screens/criar_restaurante.dart';
 import 'package:newproject/screens/inicio.dart';
-import 'package:newproject/screens/resgister.dart';
+import 'package:newproject/screens/register/resgister.dart';
 
 class Restaurantes extends StatefulWidget {
   @override

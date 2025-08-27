@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // <- pra controlar status bar
 import 'package:newproject/components/footer.dart';
-import 'package:newproject/screens/resgister.dart';
+import 'package:newproject/screens/register/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
 import 'criar_restaurante.dart';
 
