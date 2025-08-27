@@ -77,8 +77,56 @@ class _BibliotecaState extends State<Biblioteca> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Cardapio(), // tua tela de cardápio
-                  ),
+                    builder: (context) => Cardapio(
+                      urlImg: 'assets/images/4menu.png', // logo
+                      urlBanner: 'assets/images/4menu.png', // banner
+                      nomeRestaurante: 'Meu Tico', // nome restaurante
+                      categorias: {
+                        // categorias: bebidas, hamburguers, pizzas...
+                        // junto com os produtos e seus precos, descrições e fotos
+                        'Entradas': [
+                          Produto(
+                            nome: 'Salada Tropical', // nome
+                            descricao: 'Mix de folhas e frutas', // descrição
+                            preco: 15.9, // preco
+                            foto:
+                                'assets/images/background.jpeg', // foto produto
+                          ),
+                        ],
+                        'Pratos Principais': [
+                          Produto(
+                            nome: 'Frango Grelhado',
+                            descricao: 'Frango suculento',
+                            preco: 29.9,
+                            foto: 'assets/images/background.jpeg',
+                          ),
+                        ],
+                        'Bebidas': [
+                          Produto(
+                            nome: 'Suco Natural',
+                            descricao: 'Suco de laranja fresquinho',
+                            preco: 7.50,
+                            foto: 'assets/images/background.jpeg',
+                          ),
+                          Produto(
+                            nome: 'Refrigerante',
+                            descricao: 'Coca-Cola lata 350ml',
+                            preco: 6.00,
+                            foto: 'assets/images/background.jpeg',
+                          ),
+                        ],
+                        'Sobremesas': [
+                          Produto(
+                            nome: 'Petit Gateau',
+                            descricao:
+                                'Bolo com recheio de chocolate e sorvete',
+                            preco: 18.90,
+                            foto: 'assets/images/background.jpeg',
+                          ),
+                        ],
+                      },
+                    ),
+                  ), // tua tela de cardápio
                 );
               },
               child: Restaurante(
