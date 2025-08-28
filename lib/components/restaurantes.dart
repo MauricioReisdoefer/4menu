@@ -58,7 +58,7 @@ class _RestauranteState extends State<Restaurante> {
                 ),
               ),
             ),
-            // ❤️ ícone no topo (já tinha)
+
             Positioned(
               top: 8,
               right: 8,
