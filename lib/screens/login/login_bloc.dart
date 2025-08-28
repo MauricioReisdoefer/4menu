@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -31,7 +31,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final token = data["access_token"];
-        
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('jwt_token', token);
+
         emit(state.copyWith(
           isLoading: false,
           isSuccess: true,
