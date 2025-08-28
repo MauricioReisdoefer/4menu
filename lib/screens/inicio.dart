@@ -3,6 +3,7 @@ import 'package:flutter/services.dart'; // <- pra controlar status bar
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/screens/register/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:newproject/screens/login/login.dart';
 import 'criar_restaurante.dart';
 
@@ -13,6 +14,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final ScrollController _scrollController = ScrollController();
+  String? _jwtToken;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadToken();
+  }
+
+  Future<void> _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _jwtToken = prefs.getString('jwt_token');
+    });
+  }
 
   @override
   void dispose() {
@@ -42,33 +57,42 @@ class _HomeState extends State<Home> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Image.asset('assets/images/4menu.png', height: 150),
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),
-              );
-            },
-            child: Text("Sign In"),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.black,
-              backgroundColor: Colors.white,
+          if (_jwtToken != null && _jwtToken!.isNotEmpty)
+            IconButton(
+              onPressed: () {
+                // Navegar para tela de perfil
+              },
+              icon: Icon(Icons.person, color: Colors.white),
+            )
+          else ...[
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Login()),
+                );
+              },
+              child: Text("Sign In"),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.white,
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Resgister()),
-              );
-            },
-            child: Text("Registrar"),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.orange,
+            const SizedBox(width: 8),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Resgister()),
+                );
+              },
+              child: Text("Registrar"),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.orange,
+              ),
             ),
-          ),
+          ],
           const SizedBox(width: 16),
         ],
       ),

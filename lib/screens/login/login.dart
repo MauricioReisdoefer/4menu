@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newproject/components/footer.dart';
+import 'package:newproject/screens/inicio.dart';
 import 'login_bloc.dart';
 import 'login_event.dart';
 import 'login_state.dart';
@@ -25,8 +26,12 @@ class _LoginState extends State<Login> {
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.isSuccess) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Home()),
+            );
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Token: ${state.token ?? "Null"}")),
+              SnackBar(content: Text("Login foi um sucesso!")),
             );
           } else if (state.errorMessage != null) {
             ScaffoldMessenger.of(context).showSnackBar(
