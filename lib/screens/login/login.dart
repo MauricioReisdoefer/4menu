@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
         listener: (context, state) {
           if (state.isSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Login realizado com sucesso!")),
+              SnackBar(content: Text("Token: ${state.token ?? "Null"}")),
             );
           } else if (state.errorMessage != null) {
             ScaffoldMessenger.of(context).showSnackBar(

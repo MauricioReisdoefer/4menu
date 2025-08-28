@@ -1,4 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -14,14 +17,40 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
-      throw UnimplementedError("TO-DO: Conectar com a request");
-      // 
-      // TO-DO: Conectar com a request
-      //
+      final url = Uri.parse("http://10.0.29.229:5000/users/login");
+
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "username": event.username,
+          "password": event.password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final token = data["access_token"];
+        
+        emit(state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          token: token,
+          errorMessage: null,
+        ));
+      } else {
+        final data = jsonDecode(response.body);
+        emit(state.copyWith(
+          isLoading: false,
+          isSuccess: false,
+          errorMessage: data["error"] ?? "PORRA, deu erro ma n tem nada ai",
+        ));
+      }
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
-        errorMessage: "Erro no login: $e",
+        isSuccess: false,
+        errorMessage: "Falha na conexão com o servidor: $e",
       ));
     }
   }
