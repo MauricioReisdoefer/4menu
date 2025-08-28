@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:newproject/components/footer.dart';
 
-class Resgister extends StatefulWidget {
-  const Resgister({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Resgister> createState() => _ResgisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _ResgisterState extends State<Resgister> {
+class _LoginState extends State<Login> {
   bool _senhaVisivel = false;
 
   @override
