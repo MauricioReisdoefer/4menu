@@ -80,6 +80,89 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
     );
   }
 
+  // Widget pra exibir a seleção de cor
+  Widget colorSelector({
+    required String titulo,
+    required String descricao,
+    required Color corSelecionada,
+    required VoidCallback onTap,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Quadrado gradiente (abre o seletor)
+            GestureDetector(
+              onTap: onTap,
+              child: Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/gradient-color.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+
+            // Bolinha + textos
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 25,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          color: corSelecionada,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              titulo,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              descricao,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,19 +277,38 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text("Nome da Seção"),
+                            backgroundColor: const Color(0xFF1F1E1E),
+                            title: const Text(
+                              "Nome da Seção",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             content: TextField(
                               controller: secaoController,
+                              style: const TextStyle(color: Colors.white),
                               decoration: const InputDecoration(
                                 hintText: "Ex: Entradas, Pratos, Bebidas...",
+                                hintStyle: TextStyle(color: Colors.white70),
+                                labelStyle: TextStyle(color: Colors.white),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
                               ),
                             ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Text("Cancelar"),
+                                child: const Text(
+                                  "Cancelar",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                ),
                                 onPressed: () {
                                   if (secaoController.text.isNotEmpty) {
                                     setState(() {
@@ -218,7 +320,10 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                                   }
                                   Navigator.pop(context);
                                 },
-                                child: const Text("Adicionar"),
+                                child: const Text(
+                                  "Adicionar",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ],
                           );
@@ -226,7 +331,7 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: corPrimaria,
+                      backgroundColor: Colors.orange,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
@@ -245,54 +350,30 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                     return cardapioSecaoDinamica(secao["id"], secao["titulo"]);
                   }).toList(),
 
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40),
                   Text(
                     "Definindo as Cores",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
 
-                  Text(
-                    "Cor Primária",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Vai ser aplicada na maioria das coisas, sejam botões, alguns textos e preços.",
-                    style: TextStyle(color: Colors.white70, fontSize: 13),
-                  ),
-                  const SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () => _abrirColorPicker(true),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: corPrimaria,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: const Text("Selecionar Cor Primária"),
+                  colorSelector(
+                    titulo: "Cor Primária",
+                    descricao:
+                        "Vai ser aplicada na maioria das coisas, sejam botões, alguns textos e preços.",
+                    corSelecionada: corPrimaria,
+                    onTap: () => _abrirColorPicker(true),
                   ),
 
-                  const SizedBox(height: 20),
-                  Text(
-                    "Cor Secundária",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Vai ser aplicada como contraste das cores primárias, em botões selecionados, outros textos, entre outros.",
-                    style: TextStyle(color: Colors.white70, fontSize: 13),
-                  ),
-                  const SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () => _abrirColorPicker(false),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: corSecundaria,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: const Text("Selecionar Cor Secundária"),
+                  SizedBox(height: 20),
+
+                  SizedBox(height: 8),
+                  colorSelector(
+                    titulo: "Cor Secundária",
+                    descricao:
+                        "Vai ser aplicada como contraste das cores primárias, em botões selecionados, outros textos, entre outros.",
+                    corSelecionada: corSecundaria,
+                    onTap: () => _abrirColorPicker(false),
                   ),
 
                   const SizedBox(height: 40),
@@ -305,7 +386,7 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: corPrimaria,
+                        backgroundColor: Colors.orange,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 50,
                           vertical: 15,
