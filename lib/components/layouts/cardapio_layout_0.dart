@@ -1,77 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newproject/components/footer.dart';
+import 'package:newproject/models/produto_model.dart';
+import 'package:newproject/components/logo_banner.dart';
 
-class Produto {
-  final String nome;
-  final String descricao;
-  final double preco;
-  final String foto;
-
-  Produto({
-    required this.nome,
-    required this.descricao,
-    required this.preco,
-    required this.foto,
-  });
-}
-
-// LOGO
-class LogoWidget extends StatelessWidget {
-  final String urlImg;
-  const LogoWidget({super.key, required this.urlImg});
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(urlImg, height: 120, fit: BoxFit.contain);
-  }
-}
-
-// BANNER e NOME
-class BannerNomeWidget extends StatelessWidget {
-  final String urlBanner;
-  final String nomeRestaurante;
-  const BannerNomeWidget({
-    super.key,
-    required this.urlBanner,
-    required this.nomeRestaurante,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(12),
-          child: Text(
-            nomeRestaurante,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Image.asset(
-          urlBanner,
-          width: double.infinity,
-          height: 280,
-          fit: BoxFit.cover,
-        ),
-      ],
-    );
-  }
-}
-
-// CATEGORIAS
-class CategoriasWidget extends StatelessWidget {
+class CategoriasWidget0 extends StatelessWidget {
   final String categoriaSelecionada;
   final Map<String, List<Produto>> categorias;
   final Function(String) onCategoriaSelecionada;
 
-  const CategoriasWidget({
+  const CategoriasWidget0({
     super.key,
     required this.categoriaSelecionada,
     required this.categorias,
@@ -104,11 +42,10 @@ class CategoriasWidget extends StatelessWidget {
   }
 }
 
-// PRODUTOS
-class ProdutosWidget extends StatelessWidget {
+class ProdutosWidget0 extends StatelessWidget {
   final List<Produto> produtos;
 
-  const ProdutosWidget({super.key, required this.produtos});
+  const ProdutosWidget0({super.key, required this.produtos});
 
   @override
   Widget build(BuildContext context) {
@@ -145,14 +82,13 @@ class ProdutosWidget extends StatelessWidget {
   }
 }
 
-// TELA TODA
-class Cardapio extends StatefulWidget {
+class CardapioLayout0 extends StatefulWidget {
   final String urlImg;
   final String urlBanner;
   final String nomeRestaurante;
   final Map<String, List<Produto>> categorias;
 
-  const Cardapio({
+  const CardapioLayout0({
     super.key,
     required this.urlImg,
     required this.urlBanner,
@@ -161,10 +97,10 @@ class Cardapio extends StatefulWidget {
   });
 
   @override
-  State<Cardapio> createState() => _CardapioState();
+  State<CardapioLayout0> createState() => _CardapioLayout0State();
 }
 
-class _CardapioState extends State<Cardapio> {
+class _CardapioLayout0State extends State<CardapioLayout0> {
   late String categoriaSelecionada;
 
   @override
@@ -197,7 +133,7 @@ class _CardapioState extends State<Cardapio> {
             urlBanner: widget.urlBanner,
             nomeRestaurante: widget.nomeRestaurante,
           ),
-          CategoriasWidget(
+          CategoriasWidget0(
             categoriaSelecionada: categoriaSelecionada,
             categorias: widget.categorias,
             onCategoriaSelecionada: (categoria) {
@@ -207,7 +143,7 @@ class _CardapioState extends State<Cardapio> {
             },
           ),
           const SizedBox(height: 10),
-          ProdutosWidget(produtos: widget.categorias[categoriaSelecionada]!),
+          ProdutosWidget0(produtos: widget.categorias[categoriaSelecionada]!),
         ],
       ),
       bottomNavigationBar: RodapeRestaurante(abaAtual: 'restaurantes'),

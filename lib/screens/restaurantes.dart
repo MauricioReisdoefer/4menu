@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:newproject/components/footer.dart';
+import 'package:newproject/components/layouts/cardapio_layout_2.dart';
 import 'package:newproject/components/restaurantes.dart';
-import 'package:newproject/components/layouts/cardapio.dart';
-import 'package:newproject/screens/criar_restaurante.dart';
-import 'package:newproject/screens/inicio.dart';
-import 'package:newproject/screens/register/resgister.dart';
+import 'package:newproject/components/layouts/cardapio_layout_0.dart';
+import 'package:newproject/models/produto_model.dart';
 
 class Restaurantes extends StatefulWidget {
   @override
@@ -61,8 +60,8 @@ class _RestaurantesState extends State<Restaurantes> {
   }
 
   // Função para criar o Cardapio com exemplo de produtos
-  Cardapio criarCardapioExemplo(String nomeRestaurante) {
-    return Cardapio(
+  CardapioLayout2 criarCardapioExemplo(String nomeRestaurante) {
+    return CardapioLayout2(
       urlImg: 'assets/images/4menu.png',
       urlBanner: 'assets/images/4menu.png',
       nomeRestaurante: nomeRestaurante,
