@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/components/restaurantes.dart';
 import 'package:newproject/screens/create_restaurant/form/restaurant_form.dart';
 import 'package:newproject/screens/create_restaurant/sections/cardaprio_form.dart';
 import 'form/form_bloc.dart';
 import 'sections/cardapio_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'models.dart';
 
 class CriacaoRestauranteScreen extends StatefulWidget {
   const CriacaoRestauranteScreen({Key? key}) : super(key: key);
@@ -19,6 +23,27 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
   Color corPrimaria = Colors.orange;
   Color corSecundaria = Colors.grey;
 
+  // Aqui você pode guardar o JWT do usuário
+  Future<String?> getOwnerId() async {
+  final prefs = await SharedPreferences.getInstance();
+  final jwtToken = prefs.getString('jwt_token');
+  if (jwtToken == null) return null; // token não encontrado
+
+  final url = Uri.parse('http://localhost:5000/users/viewme'); 
+  final response = await http.get(
+    url,
+    headers: {
+      'Authorization': 'Bearer $jwtToken',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    return data['id'].toString(); // pega user.id do JSON
+  } else {
+    return null;
+  }
+}
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -52,10 +77,59 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
               const SizedBox(height: 40),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Restaurante novoRestaurante = Restaurante(
-                      url: "sdfsdf",
-                      nome: nomeRestaurante,
+                  onPressed: () async {
+                    // Pega os BLoCs
+                    final restaurantBloc = context.read<RestaurantBloc>();
+                    final cardapioBloc = context.read<CardapioBloc>();
+
+                    // Pega os estados atuais
+                    final restaurantState = restaurantBloc.state;
+                    final cardapioState = cardapioBloc.state;
+
+                    // Pega o ownerId do backend
+                    final ownerId = await getOwnerId();
+                    if (ownerId == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Não foi possível pegar o ownerId.")),
+                      );
+                      return;
+                    }
+
+                    // Converte as seções do CardapioBloc para SecaoModel e seus itens para ItemModel
+                    final secoes = cardapioState.secoes.map((secao) {
+                      final itens = secao.itens.map((item) {
+                        return ItemModel(
+                          id: item.id.toString(),
+                          name: item.nome,
+                          description: item.descricao,
+                          price: double.tryParse(item.preco) ?? 0.0,
+                          sectionId: secao.id.toString(),
+                        );
+                      }).toList();
+
+                      return SecaoModel(
+                        id: secao.id.toString(),
+                        title: secao.titulo,
+                        restaurantId: "", // pode preencher depois com o id do restaurante
+                        itens: itens,
+                      );
+                    }).toList();
+
+                    // Cria o RestauranteModel final
+                    final novoRestaurante = RestauranteModel(
+                      id: UniqueKey().toString(),
+                      ownerId: ownerId,
+                      layout: 0,
+                      name: restaurantState.nome ?? nomeRestaurante,
+                      primaryColor: corPrimaria.value.toRadixString(16),
+                      secondaryColor: corSecundaria.value.toRadixString(16),
+                      secoes: secoes,
+                    );
+
+                    print("Restaurante cadastrado: $novoRestaurante");
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Restaurante cadastrado com sucesso!")),
                     );
                   },
                   style: ElevatedButton.styleFrom(
