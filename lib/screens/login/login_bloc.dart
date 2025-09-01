@@ -17,13 +17,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
-      final url = Uri.parse("http://10.0.29.229:5000/users/login");
+      final url = Uri.parse("http://192.168.1.12:5000/users/login");
 
       final response = await http.post(
         url,
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
-          "username": event.username,
+          "name": event.username,
           "password": event.password,
         }),
       );

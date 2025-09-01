@@ -30,7 +30,7 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
       final token = "JWT_AQUI";
 
       final response = await http.post(
-        Uri.parse("http://localhost:5000/restaurants/create"),
+        Uri.parse("http://192.168.1.12:5000/restaurants/create"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",
