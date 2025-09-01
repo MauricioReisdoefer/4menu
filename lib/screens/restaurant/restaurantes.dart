@@ -46,19 +46,30 @@ class _RestaurantesState extends State<Restaurantes> {
   }
 
   Future<CardapioLayout2> _montarCardapio(RestauranteModel rest) async {
+  try {
     final secoes = await ApiService.getSecoes(rest.id);
+    debugPrint("Secoes recebidas para ${rest.name}: $secoes");
+
     final categorias = <String, List<Produto>>{};
 
     for (final secao in secoes) {
       final itens = await ApiService.getItens(secao.id);
-      categorias[secao.title] = itens
-          .map((i) => Produto(
-                nome: i.name,
-                descricao: i.description,
-                preco: i.price,
-                foto: 'assets/images/background.jpeg',
-              ))
-          .toList();
+      debugPrint("Itens da seção ${secao.title}: ${itens.map((e) => e.name).toList()}");
+
+      // Constrói a lista de Produtos garantindo todos os itens
+      final listaProdutos = itens.map((i) => Produto(
+            nome: i.name,
+            descricao: i.description,
+            preco: i.price,
+            foto: 'assets/images/background.jpeg',
+          )).toList();
+
+      categorias[secao.title] = listaProdutos;
+    }
+
+    // Garantir que sempre exista ao menos uma categoria
+    if (categorias.isEmpty) {
+      categorias['Sem Itens'] = [];
     }
 
     return CardapioLayout2(
@@ -67,7 +78,12 @@ class _RestaurantesState extends State<Restaurantes> {
       nomeRestaurante: rest.name,
       categorias: categorias,
     );
+  } catch (e) {
+    debugPrint("Erro ao montar cardápio: $e");
+    rethrow;
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +131,17 @@ class _RestaurantesState extends State<Restaurantes> {
                         children: state.restaurantes.map((rest) {
                           return GestureDetector(
                             onTap: () async {
-                              final cardapio = await _montarCardapio(rest);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => cardapio),
-                              );
+                              try {
+                                final cardapio = await _montarCardapio(rest);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => cardapio),
+                                );
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Erro ao abrir cardápio")),
+                                );
+                              }
                             },
                             child: Restaurante(
                               url: "https://picsum.photos/200",
