@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newproject/screens/biblioteca.dart';
-import 'package:newproject/screens/criar_restaurante.dart';
+import 'package:newproject/screens/create_restaurant/criar_restaurante.dart';
 import 'package:newproject/screens/inicio.dart';
 import 'package:newproject/screens/restaurantes.dart';
 

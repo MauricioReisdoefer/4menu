@@ -4,76 +4,117 @@ import 'package:newproject/components/footer.dart';
 import 'package:newproject/models/produto_model.dart';
 import 'package:newproject/components/logo_banner.dart';
 
-class ProdutosWidget1 extends StatelessWidget {
+class ProdutosWidget1 extends StatefulWidget {
   final Map<String, List<Produto>> categorias;
 
   const ProdutosWidget1({super.key, required this.categorias});
 
   @override
+  State<ProdutosWidget1> createState() => _ProdutosWidget1State();
+}
+
+class _ProdutosWidget1State extends State<ProdutosWidget1> {
+  final List<Produto> selecionados = [];
+
+  @override
   Widget build(BuildContext context) {
+    // Cria uma lista de widgets
+    List<Widget> produtosList = [];
+
+    for (var entry in widget.categorias.entries) {
+      final categoria = entry.key;
+      final produtos = entry.value;
+
+      produtosList.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            categoria,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+      for (var produto in produtos) {
+        final marcado = selecionados.contains(produto);
+
+        produtosList.add(
+          Card(
+            color: Colors.black87,
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            child: CheckboxListTile(
+              activeColor: Colors.orange,
+              checkColor: Colors.white,
+              secondary: Image.asset(
+                produto.foto,
+                width: 60,
+                fit: BoxFit.cover,
+              ),
+              title: Text(
+                produto.nome,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    produto.descricao,
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "R\$${produto.preco.toStringAsFixed(2)}",
+                    style: const TextStyle(color: Colors.orange, fontSize: 16),
+                  ),
+                ],
+              ),
+              value: marcado,
+              onChanged: (bool? value) {
+                setState(() {
+                  if (value == true) {
+                    selecionados.add(produto);
+                  } else {
+                    selecionados.remove(produto);
+                  }
+                });
+              },
+            ),
+          ),
+        );
+      }
+
+      produtosList.add(const SizedBox(height: 16));
+    }
+
+    // Adiciona o botão "Fazer Pedido" no final
+    produtosList.add(
+      Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ElevatedButton(
+          onPressed: () {
+            // TODO: enviar pedido pro BD depois
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            foregroundColor: Colors.white,
+            minimumSize: const Size(double.infinity, 50),
+          ),
+          child: const Text("Fazer Pedido"),
+        ),
+      ),
+    );
+
     return Expanded(
       child: ListView(
         padding: const EdgeInsets.all(16),
-        children: categorias.entries.map((entry) {
-          final categoria = entry.key;
-          final produtos = entry.value;
-
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Título da categoria
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  categoria,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-
-              // Lista de produtos da categoria
-              ...produtos.map((produto) {
-                return Card(
-                  color: Colors.black87,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  child: ListTile(
-                    leading: Image.asset(
-                      produto.foto,
-                      width: 60,
-                      fit: BoxFit.cover,
-                    ),
-                    title: Text(
-                      produto.nome,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Text(
-                      produto.descricao,
-                      style: const TextStyle(color: Colors.white70),
-                    ),
-                    trailing: Text(
-                      "R\$${produto.preco.toStringAsFixed(2)}",
-                      style: const TextStyle(
-                        color: Colors.orange,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-
-              const SizedBox(height: 16),
-            ],
-          );
-        }).toList(),
+        children: produtosList,
       ),
     );
   }

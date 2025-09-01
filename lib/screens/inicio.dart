@@ -5,7 +5,7 @@ import 'package:newproject/screens/register/resgister.dart';
 import 'package:newproject/screens/restaurantes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:newproject/screens/login/login.dart';
-import 'criar_restaurante.dart';
+import 'package:newproject/screens/create_restaurant/criar_restaurante.dart';
 
 class Home extends StatefulWidget {
   @override

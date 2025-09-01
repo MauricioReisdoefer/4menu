@@ -37,34 +37,54 @@ class CategoriasWidget2 extends StatelessWidget {
   }
 }
 
-class ProdutosWidget2 extends StatelessWidget {
+class ProdutosWidget2 extends StatefulWidget {
   final List<Produto> produtos;
 
   const ProdutosWidget2({super.key, required this.produtos});
 
   @override
+  State<ProdutosWidget2> createState() => _ProdutosWidget2State();
+}
+
+class _ProdutosWidget2State extends State<ProdutosWidget2> {
+  final List<Produto> selecionados = [];
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        padding: const EdgeInsets.all(12),
-        itemCount: produtos.length,
-        itemBuilder: (context, index) {
-          final produto = produtos[index];
-          return Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(produto.foto),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.6),
-                  BlendMode.darken,
-                ),
+    List<Widget> produtosList = [];
+
+    for (var produto in widget.produtos) {
+      final marcado = selecionados.contains(produto);
+
+      produtosList.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(produto.foto),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.6),
+                BlendMode.darken,
               ),
-              borderRadius: BorderRadius.circular(12),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: CheckboxListTile(
+            value: marcado,
+            onChanged: (bool? value) {
+              setState(() {
+                if (value == true) {
+                  selecionados.add(produto);
+                } else {
+                  selecionados.remove(produto);
+                }
+              });
+            },
+            activeColor: Colors.orange,
+            checkColor: Colors.white,
+            title: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,8 +109,34 @@ class ProdutosWidget2 extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+        ),
+      );
+    }
+
+    // Adiciona o botão "Fazer Pedido" no final
+    produtosList.add(
+      Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ElevatedButton(
+          onPressed: () {
+            // TODO: enviar pedido pro BD depois
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            foregroundColor: Colors.white,
+            minimumSize: const Size(double.infinity, 50),
+          ),
+          child: const Text("Fazer Pedido"),
+        ),
+      ),
+    );
+
+    return Expanded(
+      child: ListView(
+        padding: const EdgeInsets.all(12),
+        children: produtosList,
       ),
     );
   }

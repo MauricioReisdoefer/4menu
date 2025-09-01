@@ -42,23 +42,38 @@ class CategoriasWidget0 extends StatelessWidget {
   }
 }
 
-class ProdutosWidget0 extends StatelessWidget {
+class ProdutosWidget0 extends StatefulWidget {
   final List<Produto> produtos;
 
   const ProdutosWidget0({super.key, required this.produtos});
 
   @override
+  State<ProdutosWidget0> createState() => _ProdutosWidget0State();
+}
+
+class _ProdutosWidget0State extends State<ProdutosWidget0> {
+  final List<Produto> selecionados = [];
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: produtos.length,
+        itemCount: widget.produtos.length,
         itemBuilder: (context, index) {
-          final produto = produtos[index];
+          final produto = widget.produtos[index];
+          final marcado = selecionados.contains(produto);
+
           return Card(
             color: Colors.black87,
             margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: ListTile(
-              leading: Image.asset(produto.foto, width: 60, fit: BoxFit.cover),
+            child: CheckboxListTile(
+              activeColor: Colors.orange,
+              checkColor: Colors.white,
+              secondary: Image.asset(
+                produto.foto,
+                width: 60,
+                fit: BoxFit.cover,
+              ),
               title: Text(
                 produto.nome,
                 style: const TextStyle(
@@ -66,14 +81,30 @@ class ProdutosWidget0 extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(
-                produto.descricao,
-                style: const TextStyle(color: Colors.white70),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    produto.descricao,
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "R\$${produto.preco.toStringAsFixed(2)}",
+                    style: const TextStyle(color: Colors.orange, fontSize: 16),
+                  ),
+                ],
               ),
-              trailing: Text(
-                "R\$${produto.preco.toStringAsFixed(2)}",
-                style: const TextStyle(color: Colors.orange, fontSize: 16),
-              ),
+              value: marcado,
+              onChanged: (bool? value) {
+                setState(() {
+                  if (value == true) {
+                    selecionados.add(produto);
+                  } else {
+                    selecionados.remove(produto);
+                  }
+                });
+              },
             ),
           );
         },
@@ -144,6 +175,20 @@ class _CardapioLayout0State extends State<CardapioLayout0> {
           ),
           const SizedBox(height: 10),
           ProdutosWidget0(produtos: widget.categorias[categoriaSelecionada]!),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              onPressed: () {
+                // TODO: aqui depois a gente manda pro banco de dados
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+                minimumSize: Size(double.infinity, 50),
+              ),
+              child: const Text("Fazer Pedido"),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: RodapeRestaurante(abaAtual: 'restaurantes'),
