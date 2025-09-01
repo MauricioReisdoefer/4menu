@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:newproject/components/footer.dart';
-import 'package:newproject/components/restaurantes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'form_bloc.dart';
+import 'form_state.dart';
+import 'form_event.dart';
 
 class RestauranteForm extends StatefulWidget {
-  final ValueChanged<String> onNomeChanged;
-  final ValueChanged<Color> onCorPrimariaChanged;
-  final ValueChanged<Color> onCorSecundariaChanged;
-
-  const RestauranteForm({
-    Key? key,
-    required this.onNomeChanged,
-    required this.onCorPrimariaChanged,
-    required this.onCorSecundariaChanged,
-  }) : super(key: key);
+  const RestauranteForm({Key? key}) : super(key: key);
 
   @override
   State<RestauranteForm> createState() => _RestauranteFormState();
@@ -21,10 +14,8 @@ class RestauranteForm extends StatefulWidget {
 
 class _RestauranteFormState extends State<RestauranteForm> {
   final TextEditingController controllerNome = TextEditingController();
-  Color corPrimaria = Colors.orange;
-  Color corSecundaria = Colors.grey;
 
-  void _abrirColorPicker(bool isPrimaria) {
+  void _abrirColorPicker(BuildContext context, bool isPrimaria, Color corAtual) {
     showDialog(
       context: context,
       builder: (context) {
@@ -32,17 +23,13 @@ class _RestauranteFormState extends State<RestauranteForm> {
           title: Text(isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária"),
           content: SingleChildScrollView(
             child: ColorPicker(
-              pickerColor: isPrimaria ? corPrimaria : corSecundaria,
+              pickerColor: corAtual,
               onColorChanged: (color) {
-                setState(() {
-                  if (isPrimaria) {
-                    corPrimaria = color;
-                    widget.onCorPrimariaChanged(color);
-                  } else {
-                    corSecundaria = color;
-                    widget.onCorSecundariaChanged(color);
-                  }
-                });
+                if (isPrimaria) {
+                  context.read<RestaurantBloc>().add(RestaurantCorPrimariaChanged(color));
+                } else {
+                  context.read<RestaurantBloc>().add(RestaurantCorSecundariaChanged(color));
+                }
               },
             ),
           ),
@@ -51,19 +38,6 @@ class _RestauranteFormState extends State<RestauranteForm> {
           ],
         );
       },
-    );
-  }
-
-  Widget layoutOption(bool selected) {
-    return Container(
-      width: 90,
-      height: 90,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: selected ? corPrimaria : Colors.transparent, width: 3),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Icon(Icons.dashboard, size: 40, color: Colors.black54),
     );
   }
 
@@ -119,52 +93,48 @@ class _RestauranteFormState extends State<RestauranteForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Nome
-        Text("Título do Restaurante", style: TextStyle(color: Colors.white, fontSize: 18)),
-        const SizedBox(height: 8),
-        TextField(
-          controller: controllerNome,
-          onChanged: widget.onNomeChanged,
-          decoration: InputDecoration(
-            hintText: "Nome genérico...",
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-        const SizedBox(height: 30),
+    return BlocBuilder<RestaurantBloc, RestaurantState>(
+      builder: (context, state) {
+        // mantém controller sincronizado com o state
+        controllerNome.value = controllerNome.value.copyWith(text: state.nome);
 
-        // Layout
-        Text("Escolha o Layout", style: TextStyle(color: Colors.white, fontSize: 18)),
-        const SizedBox(height: 12),
-        Wrap(spacing: 16, runSpacing: 16, children: [
-          layoutOption(true),
-          layoutOption(false),
-          layoutOption(false),
-          layoutOption(false),
-        ]),
-        const SizedBox(height: 30),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Nome
+            const Text("Título do Restaurante", style: TextStyle(color: Colors.white, fontSize: 18)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: controllerNome,
+              onChanged: (value) => context.read<RestaurantBloc>().add(RestaurantNomeChanged(value)),
+              decoration: InputDecoration(
+                hintText: "Nome genérico...",
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+            const SizedBox(height: 30),
 
-        // Cores
-        Text("Definindo as Cores", style: TextStyle(color: Colors.white, fontSize: 18)),
-        const SizedBox(height: 10),
-        colorSelector(
-          titulo: "Cor Primária",
-          descricao: "Vai ser aplicada na maioria das coisas, sejam botões, alguns textos e preços.",
-          corSelecionada: corPrimaria,
-          onTap: () => _abrirColorPicker(true),
-        ),
-        colorSelector(
-          titulo: "Cor Secundária",
-          descricao: "Vai ser aplicada como contraste das cores primárias, em botões selecionados, outros textos, entre outros.",
-          corSelecionada: corSecundaria,
-          onTap: () => _abrirColorPicker(false),
-        ),
-      ],
+            // Cores
+            const Text("Definindo as Cores", style: TextStyle(color: Colors.white, fontSize: 18)),
+            const SizedBox(height: 10),
+            colorSelector(
+              titulo: "Cor Primária",
+              descricao: "Vai ser aplicada na maioria das coisas, sejam botões, alguns textos e preços.",
+              corSelecionada: state.corPrimaria,
+              onTap: () => _abrirColorPicker(context, true, state.corPrimaria),
+            ),
+            colorSelector(
+              titulo: "Cor Secundária",
+              descricao: "Vai ser aplicada como contraste das cores primárias, em botões selecionados, outros textos, entre outros.",
+              corSelecionada: state.corSecundaria,
+              onTap: () => _abrirColorPicker(context, false, state.corSecundaria),
+            ),
+          ],
+        );
+      },
     );
   }
 }
