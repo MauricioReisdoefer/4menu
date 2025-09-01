@@ -5,10 +5,8 @@ import 'package:newproject/components/restaurantes.dart';
 import 'package:newproject/screens/create_restaurant/form/restaurant_form.dart';
 import 'package:newproject/screens/create_restaurant/sections/cardaprio_form.dart';
 import 'form/form_bloc.dart';
+import 'sections/cardapio_bloc.dart';
 
-// ==========================
-// TELA PRINCIPAL
-// ==========================
 class CriacaoRestauranteScreen extends StatefulWidget {
   const CriacaoRestauranteScreen({Key? key}) : super(key: key);
 
@@ -23,8 +21,15 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => RestaurantBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RestaurantBloc>(
+          create: (_) => RestaurantBloc(),
+        ),
+        BlocProvider<CardapioBloc>(
+          create: (_) => CardapioBloc(),
+        ),
+      ],
       child: Scaffold(
         backgroundColor: const Color(0xFF1F1E1E),
         appBar: AppBar(
