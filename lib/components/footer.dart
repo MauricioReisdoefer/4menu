@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newproject/screens/biblioteca.dart';
 import 'package:newproject/screens/create_restaurant/criar_restaurante.dart';
 import 'package:newproject/screens/inicio.dart';
-import 'package:newproject/screens/restaurantes.dart';
+import 'package:newproject/screens/restaurant/restaurantes.dart';
 
 class RodapeRestaurante extends StatelessWidget {
   final String abaAtual; // recebe o nome da tela atual

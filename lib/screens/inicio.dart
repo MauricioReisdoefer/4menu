@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // <- pra controlar status bar
 import 'package:newproject/components/footer.dart';
 import 'package:newproject/screens/register/resgister.dart';
-import 'package:newproject/screens/restaurantes.dart';
+import 'package:newproject/screens/restaurant/restaurantes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:newproject/screens/login/login.dart';
 import 'package:newproject/screens/create_restaurant/criar_restaurante.dart';

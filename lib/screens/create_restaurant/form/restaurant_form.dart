@@ -16,30 +16,31 @@ class _RestauranteFormState extends State<RestauranteForm> {
   final TextEditingController controllerNome = TextEditingController();
 
   void _abrirColorPicker(BuildContext context, bool isPrimaria, Color corAtual) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária"),
-          content: SingleChildScrollView(
-            child: ColorPicker(
-              pickerColor: corAtual,
-              onColorChanged: (color) {
-                if (isPrimaria) {
-                  context.read<RestaurantBloc>().add(RestaurantCorPrimariaChanged(color));
-                } else {
-                  context.read<RestaurantBloc>().add(RestaurantCorSecundariaChanged(color));
-                }
-              },
-            ),
+  final parentContext = context;
+  showDialog(
+    context: context,
+    builder: (dialogContext) {
+      return AlertDialog(
+        title: Text(isPrimaria ? "Escolha a Cor Primária" : "Escolha a Cor Secundária"),
+        content: SingleChildScrollView(
+          child: ColorPicker(
+            pickerColor: corAtual,
+            onColorChanged: (color) {
+              if (isPrimaria) {
+                parentContext.read<RestaurantBloc>().add(RestaurantCorPrimariaChanged(color));
+              } else {
+                parentContext.read<RestaurantBloc>().add(RestaurantCorSecundariaChanged(color));
+              }
+            },
           ),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: const Text("OK")),
-          ],
-        );
-      },
-    );
-  }
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text("OK")),
+        ],
+      );
+    },
+  );
+}
 
   Widget colorSelector({
     required String titulo,

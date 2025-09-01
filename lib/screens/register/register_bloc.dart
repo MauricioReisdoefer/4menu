@@ -21,7 +21,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
-      final url = Uri.parse("http://192.168.1.12:5000/users/create"); 
+      final url = Uri.parse("http://10.0.29.229:5000/users/create"); 
 
       final response = await http.post(
         url,
