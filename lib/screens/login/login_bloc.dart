@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
@@ -17,7 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
-      final url = Uri.parse("http://10.0.29.229:5000/users/login");
+      String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+      final url = Uri.parse("${apiUrl}/users/login");
 
       final response = await http.post(
         url,

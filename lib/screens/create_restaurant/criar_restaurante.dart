@@ -8,6 +8,7 @@ import 'package:newproject/screens/create_restaurant/sections/cardaprio_form.dar
 import 'form/form_bloc.dart';
 import 'sections/cardapio_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'models.dart';
 
 class CriacaoRestauranteScreen extends StatefulWidget {
@@ -25,7 +26,8 @@ class _CriacaoRestauranteScreenState extends State<CriacaoRestauranteScreen> {
     final jwtToken = prefs.getString('jwt_token');
     if (jwtToken == null) return null;
 
-    final url = Uri.parse('http://10.0.29.229:5000/users/viewme');
+    String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+    final url = Uri.parse('${apiUrl}/users/viewme');
     final response = await http.get(
       url,
       headers: {'Authorization': 'Bearer $jwtToken'},

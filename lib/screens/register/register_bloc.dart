@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'register_event.dart';
 import 'register_state.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc() : super(const RegisterState()) {
@@ -21,7 +22,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
-      final url = Uri.parse("http://10.0.29.229:5000/users/create"); 
+      String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+      final url = Uri.parse("${apiUrl}/users/create"); 
 
       final response = await http.post(
         url,

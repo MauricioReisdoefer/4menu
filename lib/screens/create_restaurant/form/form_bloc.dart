@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'form_event.dart';
 import 'form_state.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -29,8 +30,9 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
       // TODO: pegar token do SharedPreferences
       final token = "JWT_AQUI";
 
+      String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
       final response = await http.post(
-        Uri.parse("http://10.0.29.229:5000/restaurants/create"),
+        Uri.parse("${apiUrl}/restaurants/create"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer $token",

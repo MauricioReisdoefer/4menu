@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'models.dart'; // onde ficaram os models acima
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiService {
-  static const baseUrl = "http://10.0.29.229:5000";
+  static String baseUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
 
   static Future<List<RestauranteModel>> getRestaurantes() async {
   final res = await http.get(Uri.parse("$baseUrl/restaurants/1"));
@@ -72,7 +73,8 @@ static Future<List<SecaoModel>> getSecoes(int restId) async {
 
 
   static Future<List<ItemModel>> getItens(int secaoId) async {
-  final url = Uri.parse('http://10.0.29.229:5000/item/get/$secaoId');
+  String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+  final url = Uri.parse('${apiUrl}/item/get/$secaoId');
   debugPrint("Chamando URL de itens: $url");
 
   try {
